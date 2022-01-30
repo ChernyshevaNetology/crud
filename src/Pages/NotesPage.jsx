@@ -7,7 +7,6 @@ import axios from "axios";
 const NotesPage = () => {
   const url = "http://localhost:3000/posts";
   const [posts, setPosts] = useState([]);
-  const [val, setVal] = useState("");
 
   const loadPosts = async () => {
     const data = await axios.get(url).then((data) => setPosts(data.data));
@@ -20,12 +19,10 @@ const NotesPage = () => {
 
   const updatePosts = () => loadPosts();
 
-  const handleValue = ({ target: { value } }) => setVal(value);
-
-  const addNote = async () => {
+  const addNote = async (note) => {
     return await axios
       .post(url, {
-        content: val,
+        content: note,
       })
       .then(() => loadPosts())
       .catch((err) => console.log(err));
@@ -43,7 +40,7 @@ const NotesPage = () => {
             <Note key={id} id={id} content={content} deletePost={deletePost} />
           ))}
       </div>
-      <InputNote handleValue={handleValue} addNote={addNote} />
+      <InputNote addNote={addNote} />
     </div>
   );
 };

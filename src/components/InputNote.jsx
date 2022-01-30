@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-const InputNote = ({ handleValue, addNote }) => {
+const InputNote = ({ addNote }) => {
+  const [value, setValue] = useState("");
+
+  const handleValue = ({ target: { value } }) => setValue(value);
+
   return (
     <div className="inp">
-      <input type="textarea" onChange={(e) => handleValue(e)} />
-      <button onClick={addNote} className="btn">
+      <input value={value} type="textarea" onChange={handleValue} />
+      <button onClick={() => addNote(value)} className="btn">
         Add Note
       </button>
     </div>
